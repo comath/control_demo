@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app:
+    build: .
+    volumes:
+      - ${HF_HOME:-~/.cache/huggingface/hub}:/app/.cache/huggingface/hub
+    environment:
+      - HF_HOME=/app/.cache/huggingface/hub
+      - ./scratch:/app/scratch
+      - ./models:/app/models
+    command: python app.py
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
