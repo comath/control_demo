@@ -1,5 +1,5 @@
-# Use the official Python image as the base image
-FROM python:3.9
+# Use the NVIDIA CUDA image as the base image
+FROM pytorch/pytorch:2.2.2-cuda12.1-cudnn8-devel
 
 # Set the working directory
 WORKDIR /app
@@ -11,9 +11,10 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire project
-COPY cldm .
-COPY ldm .
-COPY app.py .
+COPY . .
+
+# Install Transformers
+RUN pip install transformers --no-cache-dir
 
 # Set the entry point
-CMD ["python", "simplified_interface.py"]
+CMD ["python", "app.py"]
