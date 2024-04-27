@@ -4,11 +4,13 @@ services:
     build: .
     volumes:
       - ${HF_HOME:-~/.cache/huggingface/hub}:/app/.cache/huggingface/hub
+      - ./scratch:/app/scratch/
+      - ./models:/app/models/
     environment:
       - HF_HOME=/app/.cache/huggingface/hub
-      - ./scratch:/app/scratch
-      - ./models:/app/models
-    command: python app.py
+    command: python3 app.py
+    ports:
+      - "7860:7860"
     deploy:
       resources:
         reservations:

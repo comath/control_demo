@@ -93,12 +93,13 @@ with block:
         gr.Markdown("## Control Stable Diffusion with Canny Edge Maps")
     with gr.Row():
         with gr.Column():
-            input_image = gr.Image(source="webcam", tool=None)
+            input_image = gr.Image()
             prompt = gr.Textbox(value="An oil painting of a galaxy", label="Prompt")
-            run_button = gr.Button(label="Run")
+            run_button = gr.Button(value="Run")
         with gr.Column():
-            result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery").style(grid=2, height='auto')
+            result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery")
     ips = [input_image, prompt]
     run_button.click(fn=process, inputs=ips, outputs=[result_gallery])
-block.launch(server_name="0.0.0.0", share=True)
 
+print("ready")
+block.launch(server_name="0.0.0.0", share=True)
